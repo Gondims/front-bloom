@@ -19,6 +19,10 @@ module.exports = {
     },
     extend: {
       colors: {
+        blueCart: "#0B1A8E",
+        regalBlue: "#5062F0",
+        grayBloom: "#7A7A7A",
+        grayBloom400: "#434141",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -52,6 +56,15 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontSize: {
+        '32': '32px',
+        '40': '40px'
+      },
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'], 
+        lato: ['Lato', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

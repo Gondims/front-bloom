@@ -13,6 +13,19 @@ interface Product {
     count: number;
   };
 }
+interface UseProductsParams {
+  pageIndex?: number;
+  pageSize?: number;
+  category?: string;
+}
+
+interface ProductsResponse {
+  products: Product[];
+  totalCount: number;
+  pageIndex: number;
+  pageSize: number;
+}
+
 
 // Função base para fetch
 const fetchApi = async <T>(url: string): Promise<T> => {
@@ -33,11 +46,41 @@ const API_ROUTES = {
   // Adicione outros endpoints aqui
 };
 
-// Hooks para React Query
-export const useProducts = () => {
-  return useQuery<Product[]>({
-    queryKey: ['products'],
-    queryFn: () => fetchApi<Product[]>(API_ROUTES.products.getAll()),
+
+
+export const useProducts = ({
+  pageIndex = 0,
+  pageSize = 5,
+  category,
+}: UseProductsParams) => {
+  return useQuery<ProductsResponse>({
+    queryKey: ['products', pageIndex, pageSize, category],
+    queryFn: async () => {
+      const baseUrl = 'https://fakestoreapi.com/products';
+      const params = new URLSearchParams();
+
+      if (category) params.append('category', category);
+    
+
+      const url = `${baseUrl}?${params.toString()}`;
+      const response = await fetch(url);
+
+      if (!response.ok) throw new Error('Network response was not ok');
+  
+
+      const allProducts = await response.json();
+
+      // Implementação manual da paginação (já que a API não suporta)
+      const startIndex = pageIndex * pageSize;
+      const paginatedProducts = allProducts.slice(startIndex, startIndex + pageSize);
+
+      return {
+        products: paginatedProducts,
+        totalCount: allProducts.length,
+        pageIndex,
+        pageSize,
+      };
+    },
   });
 };
 
@@ -55,3 +98,4 @@ export const api = {
     getById: (id: number) => fetchApi<Product>(API_ROUTES.products.getById(id)),
   },
 };
+

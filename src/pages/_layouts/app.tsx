@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 
 export function AppLayout() {
   return (
-    <div className="flex min-h-screen flex-col antialiased">
+    <div className="flex min-h-screen flex-col antialiased mx-auto">
       <Header />
-      <div className="flex flex-1 flex-row gap-4 p-8 pt-6">
+      <div className="flex flex-1 flex-row mx-auto max-w-7xl">
         <Outlet />
       </div>
     </div>

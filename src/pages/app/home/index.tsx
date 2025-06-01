@@ -1,5 +1,6 @@
-import { Helmet } from 'react-helmet-async'
-import { ProductsList } from '../../../components/productsList'
+import { Helmet } from "react-helmet-async";
+import { ProductsList } from "../../../components/productsList";
+import { ViewControls } from "@/components/viewControls";
 
 export function Home() {
   return (
@@ -9,13 +10,14 @@ export function Home() {
         <h1 className="text-3xl font-bold ">Dashboard</h1>
 
         <div className="">
-        AQUI
+          <p className="">MEN'S CLOTHING</p>
         </div>
 
-        <div className="">
+        <div className="pt-[86px]">
+          <ViewControls />
           <ProductsList />
         </div>
       </div>
     </>
-  )
+  );
 }
