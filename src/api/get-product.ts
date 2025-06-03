@@ -21,6 +21,7 @@ interface UseProductsParams {
   pageIndex?: number;
   pageSize?: number;
   category?: string;
+      searchTerm?: string;
 }
 
 interface ProductsResponse {
@@ -28,6 +29,7 @@ interface ProductsResponse {
   totalCount: number;
   pageIndex: number;
   pageSize: number;
+
 }
 
 
@@ -48,14 +50,27 @@ const API_ROUTES = {
   },
 };
 
+export const useAllProducts = () => {
+  return useQuery<Product[]>({
+    queryKey: ['all-products'],
+    queryFn: async () => {
+      const response = await fetch('https://fakestoreapi.com/products');
+      if (!response.ok) throw new Error('Network response was not ok');
+      const products = await response.json();
+      return products.map(applyProductDiscounts);
+    },
+  });
+};
+
 
 export const useProducts = ({
   pageIndex = 0,
   pageSize = 5,
   category,
+   searchTerm = '',
 }: UseProductsParams) => {
   return useQuery<ProductsResponse>({
-    queryKey: ['products', pageIndex, pageSize, category],
+    queryKey: ['products', pageIndex, pageSize, category, searchTerm],
     queryFn: async () => {
       const baseUrl = 'https://fakestoreapi.com/products';
       const params = new URLSearchParams();
@@ -69,7 +84,13 @@ export const useProducts = ({
       if (!response.ok) throw new Error('Network response was not ok');
   
 
-      const allProducts = await response.json();
+      let allProducts = await response.json();
+
+            if (searchTerm) {
+        allProducts = allProducts.filter((product: { title: string; }) =>
+          product.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
 
       const startIndex = pageIndex * pageSize;
       const productsWithDiscount = allProducts.map(applyProductDiscounts);

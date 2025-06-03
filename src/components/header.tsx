@@ -1,21 +1,25 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Badge } from "./badge";
-import { useCart } from '@/context/cartContext';
-import { Cart } from './cart';
-import { Link } from 'react-router-dom';
+import { useCart } from "@/context/cartContext";
+import { Cart } from "./cart";
+import { Link } from "react-router-dom";
 import CartIcon from "@/assets/cart.svg";
+import ProductListWithSearch from "./productListWithSearch";
 
 export function Header() {
-const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartCount } = useCart();
-  
 
   return (
-    <div className="border-b bg-regalBlue">
-      <div className="mx-auto max-lg:px-4 flex h-16 max-w-[1057px] justify-between items-center gap-6">
-        <Link className="flex items-center font-sans text-2xl lg:text-32 font-bold text-white" to={`/`}>
+    <div className="border-b bg-regalBlue fixed w-full z-[8px]">
+      <div className="mx-auto flex h-16 max-w-[1057px] items-center justify-between gap-6 max-lg:px-4">
+        <Link
+          className="flex items-center font-sans text-2xl font-bold text-white lg:text-32"
+          to={`/`}
+        >
           Bloom Store
         </Link>
+        <ProductListWithSearch />
         <div className="relative">
           <Badge
             count={cartCount}
@@ -24,11 +28,8 @@ const [isCartOpen, setIsCartOpen] = useState(false);
           >
             <img src={CartIcon} alt="Cart" className="h-6 w-6" />
           </Badge>
-
-          <Cart
-            isOpen={isCartOpen}
-            onClose={() => setIsCartOpen(false)}
-          />
+          
+          <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
         </div>
       </div>
     </div>
