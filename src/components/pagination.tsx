@@ -17,16 +17,16 @@ export function Pagination({
   const pageNumbers = Array.from({ length: pages }, (_, i) => i + 1)
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-center">
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-1">
           {pageNumbers.map((page) => (
             <button
               key={page}
               onClick={() => onPageChange(page - 1)} 
-              className={`h-8 w-8 rounded ${
+              className={`h-8 w-8 rounded-xl border border-blueCart font-lato font-bold text-xs ${
                 pageIndex === page - 1
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-[#1F2445] text-white '
                   : 'hover:bg-gray-100'
               }`}
             >

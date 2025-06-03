@@ -6,15 +6,14 @@ export function Home() {
   return (
     <>
       <Helmet title="home" />
-      <div className="flex flex-col">
-        <h1 className="text-3xl font-bold ">Dashboard</h1>
+      <div className="flex w-full flex-col">
+        <ViewControls />
 
         <div className="">
           <p className="">MEN'S CLOTHING</p>
         </div>
 
-        <div className="pt-[86px]">
-          <ViewControls />
+        <div>
           <ProductsList />
         </div>
       </div>

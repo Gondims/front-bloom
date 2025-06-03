@@ -1,3 +1,4 @@
+import { applyProductDiscounts } from '@/utils/product';
 import { useQuery } from '@tanstack/react-query';
 
 // Tipagem para o produto (baseado na API fake store)
@@ -8,6 +9,9 @@ interface Product {
   description: string;
   category: string;
   image: string;
+  discountedPrice?: number; 
+  discountPercentage?: number
+  hasDiscount?: boolean
   rating: {
     rate: number;
     count: number;
@@ -36,16 +40,13 @@ const fetchApi = async <T>(url: string): Promise<T> => {
   return response.json();
 };
 
-// Rotas da API
+
 const API_ROUTES = {
   products: {
     getAll: () => 'https://fakestoreapi.com/products',
     getById: (id: number) => `https://fakestoreapi.com/products/${id}`,
-    // Você pode adicionar mais rotas conforme necessário
   },
-  // Adicione outros endpoints aqui
 };
-
 
 
 export const useProducts = ({
@@ -70,9 +71,10 @@ export const useProducts = ({
 
       const allProducts = await response.json();
 
-      // Implementação manual da paginação (já que a API não suporta)
       const startIndex = pageIndex * pageSize;
-      const paginatedProducts = allProducts.slice(startIndex, startIndex + pageSize);
+      const productsWithDiscount = allProducts.map(applyProductDiscounts);
+      
+      const paginatedProducts = productsWithDiscount.slice(startIndex, startIndex + pageSize);
 
       return {
         products: paginatedProducts,
