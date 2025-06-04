@@ -1,5 +1,4 @@
 // ProductPage.tsx
-import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { useProduct } from "@/api/get-product";
 import { useCart } from "@/context/cartContext";
@@ -26,7 +25,6 @@ export function ProductPage() {
 
   return (
     <>
-      <Helmet title={productWithDiscount.title} />
       <div className="flex w-full flex-col ">
         <div className="max-lg:pl-4 flex h-12 bg-[#F2F3F8] text-[13px] font-bold lg:text-2xl">
           <div className="mx-auto flex w-[1057px]">
