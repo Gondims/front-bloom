@@ -9,10 +9,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchChange }) => 
     <div className="relative w-full">
       <input
         type="text"
-        placeholder="Digite pelo menos 2 caracteres..."
+        placeholder="Pesquise aqui..."
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="w-full p-3 pl-4 pr-10 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+        className="w-full p-[3px] pl-4 pr-10 text-base border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
       />
       {searchTerm && (
         <button 

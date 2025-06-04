@@ -11,7 +11,7 @@ export function Header() {
   const { cartCount } = useCart();
 
   return (
-    <div className="border-b bg-regalBlue fixed w-full z-[8px]">
+    <div className="border-b bg-regalBlue  w-full z-[8px]">
       <div className="mx-auto flex h-16 max-w-[1057px] items-center justify-between gap-6 max-lg:px-4">
         <Link
           className="flex items-center font-sans text-2xl font-bold text-white lg:text-32"
